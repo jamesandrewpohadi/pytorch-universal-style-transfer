@@ -12,6 +12,6 @@ cp kaggle.json ~/.kaggle/
 
 kaggle competitions download -c painter-by-numbers -f train_2.zip
 unzip train_2
-mv train_2/* style/*
+mv train_2/* style/
 
 pip3 install -r requirements.txt
