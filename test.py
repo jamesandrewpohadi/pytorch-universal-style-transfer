@@ -2,6 +2,8 @@ import utils
 import models
 from torchvision import transforms
 import torch
+import torch.nn as nn
+from PIL import Image
 
 content_path = "style/mitsuha1.jpg"
 style_path = "style/mosaic.jpg"
@@ -33,4 +35,4 @@ with torch.no_grad():
     l_c = vgg(content)
     latent = utils.adain(l_c,l_s)
     out = decoder(latent)
-    utils.save_image(out,'result.jpg')
+    utils.save_image(out[0],'result.jpg')
