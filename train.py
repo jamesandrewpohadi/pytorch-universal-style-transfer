@@ -73,12 +73,13 @@ batch_count = 1
 batch_total_loss_sum = 0
 print('start training ...')
 for epoch in range (1, num_epoch+1):
-    for batch_id, (content, _) in tqdm(enumerate(train_loader)):
+    print('Epoch:',epoch)
+    for batch_id, (content, _) in tqdm(enumerate(train_loader),total=len(train_loader),leave=False):
         utils.adjust_learning_rate(optimizer, batch_count,lr,lr_decay)
         optimizer.zero_grad()
 
-        style = next(style_iter).to(device)
         content = content.to(device)
+        style = next(style_iter).to(device)[:content.shape[0]]
 
         style_feats = [relu1_1(style)]
         style_feats.append(relu2_1(style_feats[-1]))
