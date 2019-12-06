@@ -6,8 +6,7 @@ unzip val2014.zip
 mkdir dataset ckpt
 mv val2014 dataset/
 
-mkdir -p
-
+wget https://transformer-cds.s3-ap-southeast-1.amazonaws.com/kaggle.json
 mkdir -p ~/.kaggle
 cp kaggle.json ~/.kaggle/
 

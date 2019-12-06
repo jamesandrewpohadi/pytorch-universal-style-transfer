@@ -1,3 +1,5 @@
 decoder.pth
 vgg_normalised.pth
 ckpt
+__pycache__
+dataset
