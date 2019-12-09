@@ -1,6 +1,6 @@
 # Transformer
 
-# Group
-Edric
-James Andrew Pohadi
-Vieri Vincent
+## Group
+- Edric
+- James Andrew Pohadi
+- Vieri Vincent
