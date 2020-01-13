@@ -86,10 +86,13 @@ for epoch in range (1, num_epoch+1):
         style_feats.append(relu3_1(style_feats[-1]))
         style_feats.append(relu4_1(style_feats[-1]))
         content_feat = relu1_1(content)
+        content_feat = utils.adain(content_feat, style_feats[0])
         content_feat = relu2_1(content_feat)
+        content_feat = utils.adain(content_feat, style_feats[1])
         content_feat = relu3_1(content_feat)
+        content_feat = utils.adain(content_feat, style_feats[2])
         content_feat = relu4_1(content_feat)
-        latent = utils.adain(content_feat, style_feats[-1])
+        latent = utils.adain(content_feat, style_feats[3])
 
         styled = decoder(latent)
         styled_feats = [relu1_1(styled)]
