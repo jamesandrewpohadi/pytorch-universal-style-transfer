@@ -6,19 +6,18 @@ import utils
 from telegram import Bot
 import torch.nn as nn
 import torch.utils.data as data
-from utils import FlatFolderDataset
 
 # hyperparameters
-lr=0.0001
+lr=0.001
 lr_decay=5e-5
-dataset_path='dataset'
-style_dir='style'
-num_epoch=1
+content_weight=1.0
+style_weight=10.0
+num_epoch=10
 batch_size=1
 save_every=10
+content_dir='data/content'
+style_dir='data/style'
 out='ckpt'
-content_weight=1
-style_weight=10
 
 device = ("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -60,12 +59,12 @@ transform = transforms.Compose([
     transforms.ToTensor()
 ])
 
-train_dataset = datasets.ImageFolder(dataset_path, transform=transform)
+train_dataset = datasets.ImageFolder(content_dir, transform=transform)
 train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-style_dataset = FlatFolderDataset(style_dir, transform)
+style_dataset = utils.datasets.FlatFolderDataset(style_dir, transform)
 style_iter = iter(data.DataLoader(
     style_dataset, batch_size=batch_size,
-    sampler=utils.InfiniteSamplerWrapper(style_dataset),
+    sampler=utils.datasets.InfiniteSamplerWrapper(style_dataset),
     num_workers=16))
 
 # training
@@ -86,11 +85,8 @@ for epoch in range (1, num_epoch+1):
         style_feats.append(relu3_1(style_feats[-1]))
         style_feats.append(relu4_1(style_feats[-1]))
         content_feat = relu1_1(content)
-        content_feat = utils.adain(content_feat, style_feats[0])
         content_feat = relu2_1(content_feat)
-        content_feat = utils.adain(content_feat, style_feats[1])
         content_feat = relu3_1(content_feat)
-        content_feat = utils.adain(content_feat, style_feats[2])
         content_feat = relu4_1(content_feat)
         latent = utils.adain(content_feat, style_feats[3])
 
@@ -100,10 +96,11 @@ for epoch in range (1, num_epoch+1):
         styled_feats.append(relu3_1(styled_feats[-1]))
         styled_feats.append(relu4_1(styled_feats[-1]))
 
-        loss_c = utils.calc_content_loss(styled_feats[-1], latent)
+        loss_c = utils.loss.content_loss(styled_feats[-1], latent)
         loss_s = 0
         for i in range(4):
-            loss_s += utils.calc_style_loss(styled_feats[i], style_feats[i])
+            loss_s += utils.loss.gram_loss(styled_feats[i], style_feats[i])
+            # loss_s += utils.loss.mean_std_loss(styled_feats[i], style_feats[i])
 
         loss_c = content_weight * loss_c
         loss_s = style_weight * loss_s
@@ -119,5 +116,5 @@ for epoch in range (1, num_epoch+1):
             sample_image_path = out + "/batch_" + str(batch_count) + ".png"
             utils.save_image(styled[0],sample_image_path)
             sendPhoto(sample_image_path)
-            torch.save(decoder.state_dict(), out + '/D_'+str(batch_count)+".pth")
+            torch.save(decoder.state_dict(), 'weights/D_'+str(batch_count)+".pth")
             printb("Saved sample tranformed image at {}".format(sample_image_path))

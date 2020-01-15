@@ -2,6 +2,8 @@ decoder.pth
 vgg_normalised.pth
 ckpt/
 __pycache__
-dataset/
+utils/__pycache__
+data/
 adain/
 images/
+weights/
