@@ -12,7 +12,7 @@ A project done by [James Andrew Pohadi](https://github.com/jamesandrewpohadi), [
 - [Requirements](#requirements)
 - [Running on Colab](#running-on-colab)
 - [Running locally](#running-locally)
-- [References and Acknowledgement](#references)
+- [References](#references)
 
 ## Background
 
