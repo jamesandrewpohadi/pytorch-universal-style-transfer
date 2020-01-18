@@ -31,3 +31,22 @@ def adain(content_feat, style_feat):
     normalized_feat = (content_feat - content_mean.expand(
         size)) / content_std.expand(size)
     return normalized_feat * style_std.expand(size) + style_mean.expand(size)
+
+def whiten_and_color(cF,sF):
+    cFSize = cF.size()
+    c_mean = torch.mean(cF,1) # c x (h x w)
+    c_mean = c_mean.unsqueeze(1).expand_as(cF)
+    cF = cF - c_mean
+
+    contentConv = torch.mm(cF,cF.t()).div(cFSize[1]-1) + torch.eye(cFSize[0]).cuda().float()
+    c_u,c_e,c_v = torch.svd(cF)
+
+    sFSize = sF.size()
+    s_mean = torch.mean(sF,1)
+    sF = sF - s_mean.unsqueeze(1).expand_as(sF)
+    styleConv = torch.mm(sF,sF.t()).div(sFSize[1]-1)
+    s_u,s_e,s_v = torch.svd(sF)
+
+    targetFeature = torch.mm(torch.mm(torch.mm(torch.mm(s_u,torch.diag(input=s_e)),s_u.T),c_u),c_v.T)
+    targetFeature = targetFeature + s_mean.unsqueeze(1).expand_as(targetFeature)
+    return targetFeature

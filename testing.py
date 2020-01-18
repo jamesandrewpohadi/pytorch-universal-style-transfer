@@ -35,7 +35,7 @@ decoder.to(device)
 test_dataset = datasets.ImageFolder('test/content', transform=transform)
 test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=1, shuffle=False)
 
-save_dir = os.path.join('test','result',method)
+save_dir = os.path.join('test','result')
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 

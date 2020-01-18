@@ -8,13 +8,13 @@ import torch.nn as nn
 import torch.utils.data as data
 
 # hyperparameters
-lr=0.001
-lr_decay=5e-5
+lr=1e-5
+lr_decay=5e-7
 content_weight=1.0
 style_weight=10.0
-num_epoch=10
+num_epoch=1
 batch_size=1
-save_every=100
+save_every=1000
 content_dir='data/content'
 style_dir='data/style'
 out='ckpt'
@@ -51,7 +51,7 @@ decoder.load_state_dict(torch.load('decoder.pth'))
 decoder.to(device)
 
 # optimizer
-optimizer = torch.optim.Adam(decoder.parameters(), lr=lr)
+optimizer = torch.optim.SGD(decoder.parameters(), lr=lr, momentum=0, weight_decay=5e-4)
 
 transform = transforms.Compose([
     transforms.Resize(size=(512, 512)),
@@ -74,7 +74,7 @@ print('start training ...')
 for epoch in range (1, num_epoch+1):
     print('Epoch:',epoch)
     for batch_id, (content, _) in tqdm(enumerate(train_loader),total=len(train_loader),leave=False):
-        utils.adjust_learning_rate(optimizer, batch_count,lr,lr_decay)
+        # utils.adjust_learning_rate(optimizer, batch_count,lr,lr_decay)
         optimizer.zero_grad()
 
         content = content.to(device)
@@ -99,8 +99,8 @@ for epoch in range (1, num_epoch+1):
         loss_c = utils.loss.content_loss(styled_feats[-1], latent)
         loss_s = 0
         for i in range(4):
-            loss_s += utils.loss.gram_loss(styled_feats[i], style_feats[i])
-            # loss_s += utils.loss.mean_std_loss(styled_feats[i], style_feats[i])
+            # loss_s += utils.loss.gram_loss(styled_feats[i], style_feats[i])
+            loss_s += utils.loss.mean_std_loss(styled_feats[i], style_feats[i])
 
         loss_c = content_weight * loss_c
         loss_s = style_weight * loss_s
