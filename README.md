@@ -16,27 +16,18 @@ A project done by [James Andrew Pohadi](https://github.com/jamesandrewpohadi), [
 
 ## Background
 
-With the ever increasing technological advancement in the last decade, it is possible to
-incorporate machine learning tasks dealing with images as the main object of interest. As a
-result, this allows for more problems related to image, art, or content creation to be solved
-programmatically and even more efficiently. For example, the problem of automated image
-labelling can be solved by utilizing image captioning models. Another example, the problem of
-reading handwritten numbers can be solved by utilizing image classification models.
-
 The problem this project is trying to address is the difficulty of digital content creation, focusing on applying filters, for non art-savvy individuals. Imagine a scenario where an individual is tasked to apply a filter, for example Van Gogh’s ​The Starry Night ​painting, to an image. This task may not be as challenging for art-savvy individuals since they are able to either utilize existing art software such as photoshop to produce the requirement, or paint the image such that it fulfills the requirement. However, this will be a huge challenge for those who are not as adept to the process.
 
-This is where this project, image style transfer model, can come in to help those non art-savvy individuals complete the task through some computing. To be more
-specific, this project focus on universal image style transfer model, which will be able to
-apply the style of any style images to any input content images.
+This is where this project, image style transfer model, can come in to help those non art-savvy individuals complete the task through some computing. To be more specific, the project focus on universal image style transfer model, which will be able to apply the style of any style images to any input content images.
 
 ## Approach used
 
 The group tried several approaches of neural style transfer from different papers and the approach by *Xun Huang* and *Serge Belongie* give the most visually satisfying style transfer for the project:
 [Arbitrary Style Transfer in Real-time with Adaptive Instance Normalization](https://arxiv.org/abs/1703.06868)
 
-We trained our model with **COCO val 2014** dataset as content images and *train_2* of **Painter By Number** dataset as style images
+We trained our model with **[COCO val 2014](http://cocodataset.org/#download)** dataset as content images and *train_2* of **[Painter By Number](https://www.kaggle.com/c/painter-by-numbers/data)** dataset as style images
 
-Trained model: []()
+Trained model: [coming soon]
 
 ## Requirements
 [PyTorch](https://pytorch.org/) >= v1.0.0 and CUDA installed
@@ -89,7 +80,7 @@ python3 train.py
 ```
 
 ### Testing
-To test, put content images in ```./test/content``` and style images in ```./test/style/```, the run following command.
+To test, put content images in ```./test/content``` and style images in ```./test/style/```, then run following command.
 ```Shell
 python3 test.py
 ```
@@ -97,30 +88,29 @@ python3 test.py
 ## Results
 
 <p float="left">
-  <img src="samples/image_4.jpg" width="33%" />
-  <img src="samples/batik1.jpg" width="33%" />
-  <img src="samples/batik1_12.jpg" width="33%" />
+  <img src="samples/image_4.jpg" width="30%" />
+  <img src="samples/batik1.jpg" width="30%" />
+  <img src="samples/batik1_12.jpg" width="30%" />
   
   
   
 </p>
 <p float="left">
-  <img src="samples/image_14.jpg" width="33%" /> 
-  <img src="samples/painting2.jpg" width="33%" /> 
-  <img src="samples/painting2_5.jpg" width="33%" /> 
-  
-  
+  <img src="samples/image_14.jpg" width="30%" /> 
+  <img src="samples/painting2.jpg" width="30%" /> 
+  <img src="samples/painting2_5.jpg" width="30%" /> 
+
 </p>
 <p float="left">
-  <img src="samples/image_15.jpg" width="33%" />
-  <img src="samples/flower.jpg" width="33%" />
-  <img src="samples/flower_23.jpg" width="33%" />
+  <img src="samples/image_15.jpg" width="30%" />
+  <img src="samples/flower.jpg" width="30%" />
+  <img src="samples/flower_23.jpg" width="30%" />
 </p>
 <p float="left">
-  <img src="samples/image_20.jpg" width="33%" />
-  <img src="samples/painting4.jpg" width="33%" />
-  <img src="samples/painting4_3.jpg" width="33%" />
+  <img src="samples/image_20.jpg" width="30%" />
+  <img src="samples/painting4.jpg" width="30%" />
+  <img src="samples/painting4_3.jpg" width="30%" />
 </p>
 
-## References and Acknowledgement
+## References
 - [pytorch-AdaIN](https://github.com/naoto0804/pytorch-AdaIN)
