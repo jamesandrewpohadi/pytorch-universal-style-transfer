@@ -27,7 +27,7 @@ The group tried several approaches of neural style transfer from different paper
 
 We trained our model with **[COCO val 2014](http://cocodataset.org/#download)** dataset as content images and *train_2* of **[Painter By Number](https://www.kaggle.com/c/painter-by-numbers/data)** dataset as style images
 
-Trained model: [coming soon]
+Trained model: [D_40000.pth](https://f000.backblazeb2.com/file/transformer/D_40000.pth)
 
 ## Requirements
 [PyTorch](https://pytorch.org/) >= v1.0.0 and CUDA installed

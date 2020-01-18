@@ -10,7 +10,7 @@ import os
 
 # hyperparams
 method = 'adain' # adain | wct
-decoder_weight = 'D_21000.pth'
+decoder_weight = 'D_40000.pth'
 
 styles = glob('test/style/*')
 
@@ -32,7 +32,7 @@ decoder = models.decoder
 decoder.load_state_dict(torch.load('weights/'+decoder_weight))
 decoder.to(device)
 
-test_dataset = datasets.ImageFolder('test/content', transform=transform)
+test_dataset = utils.datasets.FlatFolderDataset('test/content', transform=transform)
 test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=1, shuffle=False)
 
 save_dir = os.path.join('test','result')
@@ -46,7 +46,7 @@ with torch.no_grad():
         style = transform(Image.open(str(style_path)))
         style = style.to(device).unsqueeze(0)
         l_s = vgg(style)
-        for batch_id, (content, _) in tqdm(enumerate(test_loader),total=len(test_loader),leave=False):
+        for batch_id, (content) in tqdm(enumerate(test_loader),total=len(test_loader),leave=False):
             l_c = vgg(content.to(device))
             if method=='adain':
                 latent = utils.adain(l_c,l_s)
