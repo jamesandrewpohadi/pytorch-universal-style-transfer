@@ -25,7 +25,7 @@ This is where this project, image style transfer model, can come in to help thos
 The group tried several approaches of neural style transfer from different papers and the approach by *Xun Huang* and *Serge Belongie* give the most visually satisfying style transfer for the project:
 [Arbitrary Style Transfer in Real-time with Adaptive Instance Normalization](https://arxiv.org/abs/1703.06868)
 
-We trained our model with **[COCO val 2014](http://cocodataset.org/#download)** dataset as content images and *train_2* of **[Painter By Number](https://www.kaggle.com/c/painter-by-numbers/data)** dataset as style images
+We trained our model with [COCO val 2014](http://cocodataset.org/#download) dataset as content images and *train_2* of [Painter By Number](https://www.kaggle.com/c/painter-by-numbers/data) dataset as style images
 
 Trained model: [D_40000.pth](https://f000.backblazeb2.com/file/transformer/D_40000.pth)
 

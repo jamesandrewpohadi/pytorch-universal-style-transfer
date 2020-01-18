@@ -3,7 +3,6 @@ from torchvision import transforms, datasets
 from tqdm import tqdm
 import models
 import utils
-from telegram import Bot
 import torch.nn as nn
 import torch.utils.data as data
 
@@ -20,17 +19,6 @@ style_dir='data/style'
 out='ckpt'
 
 device = ("cuda" if torch.cuda.is_available() else "cpu")
-
-# use bot to train
-bot = Bot('957726088:AAGFHUZMgVUAxSp4CxP8458qGIQxA4WJOFs')
-
-def printb(m):
-    bot.sendMessage(-391529154,m)
-    print(m)
-
-def sendPhoto(p):
-    img = open(p,'rb')
-    bot.sendPhoto(-391529154,img)
 
 # network
 vgg = models.vgg
@@ -111,10 +99,9 @@ for epoch in range (1, num_epoch+1):
         batch_total_loss_sum += t_loss
         batch_count += 1
         if (batch_count % save_every == 0) or (batch_count==num_epoch*len(train_loader)):
-            printb("========Iteration {}/{}========".format(batch_count, num_epoch*len(train_loader)))
-            printb("\tTotal Loss:\t{:.2f}\n\tCurrent Loss:\t{:.2f}".format(batch_total_loss_sum/batch_count,t_loss))
+            print("========Iteration {}/{}========".format(batch_count, num_epoch*len(train_loader)))
+            print("\tTotal Loss:\t{:.2f}\n\tCurrent Loss:\t{:.2f}".format(batch_total_loss_sum/batch_count,t_loss))
             sample_image_path = out + "/batch_" + str(batch_count) + ".png"
             utils.save_image(styled[0],sample_image_path)
-            sendPhoto(sample_image_path)
             torch.save(decoder.state_dict(), 'weights/D_'+str(batch_count)+".pth")
-            printb("Saved sample tranformed image at {}".format(sample_image_path))
+            print("Saved sample tranformed image at {}".format(sample_image_path))
