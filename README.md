@@ -1,9 +1,9 @@
-# Universal Style Transfer
+# Transformer: Universal Style Transfer
 
 A project done by [James Andrew Pohadi](https://github.com/jamesandrewpohadi), [Edric](https://github.com/edricwu) and [Vieri Vincent](https://github.com/vierivincent15)
 
 <p align='center'>
-  <img src='samples/sample1.jpg' width='50%'/>
+  <img src='samples/openhouse-poster.jpg' width='100%'/>
 </p>
 
 ## Contents
@@ -12,6 +12,7 @@ A project done by [James Andrew Pohadi](https://github.com/jamesandrewpohadi), [
 - [Requirements](#requirements)
 - [Running on Colab](#running-on-colab)
 - [Running locally](#running-locally)
+- [Results](#results)
 - [References](#references)
 
 ## Background
@@ -25,9 +26,7 @@ This is where this project, image style transfer model, can come in to help thos
 The group tried several approaches of neural style transfer from different papers and the approach by *Xun Huang* and *Serge Belongie* give the most visually satisfying style transfer for the project:
 [Arbitrary Style Transfer in Real-time with Adaptive Instance Normalization](https://arxiv.org/abs/1703.06868)
 
-We trained our model with [COCO val 2014](http://cocodataset.org/#download) dataset as content images and *train_2* of [Painter By Number](https://www.kaggle.com/c/painter-by-numbers/data) dataset as style images
-
-Trained model: [D_40000.pth](https://f000.backblazeb2.com/file/transformer/D_40000.pth)
+We trained our model with [COCO val 2014](http://cocodataset.org/#download) dataset as content images and *train_2* of [Painter By Number](https://www.kaggle.com/c/painter-by-numbers/data) dataset as style images.
 
 ## Requirements
 [PyTorch](https://pytorch.org/) >= v1.0.0 and CUDA installed
@@ -80,9 +79,9 @@ python3 train.py
 ```
 
 ### Testing
-To test, put content images in ```./test/content``` and style images in ```./test/style/```, then run following command.
+To test, put content images in ```./test/content``` and style images in ```./test/style/```, then run following command. Trained model: [D_40000.pth](https://f000.backblazeb2.com/file/transformer/D_40000.pth).
 ```Shell
-python3 test.py
+python3 testing.py
 ```
 
 ## Results
@@ -91,15 +90,11 @@ python3 test.py
   <img src="samples/image_4.jpg" width="30%" />
   <img src="samples/batik1.jpg" width="30%" />
   <img src="samples/batik1_12.jpg" width="30%" />
-  
-  
-  
 </p>
 <p float="left">
   <img src="samples/image_14.jpg" width="30%" /> 
   <img src="samples/painting2.jpg" width="30%" /> 
   <img src="samples/painting2_5.jpg" width="30%" /> 
-
 </p>
 <p float="left">
   <img src="samples/image_15.jpg" width="30%" />

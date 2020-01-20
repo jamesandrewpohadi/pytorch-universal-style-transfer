@@ -1,2 +1,2 @@
 tqdm
-python-telegram-bot
+Pillow==6.2.1

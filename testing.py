@@ -10,7 +10,7 @@ import os
 
 # hyperparams
 method = 'adain' # adain | wct
-decoder_weight = 'D_40000.pth'
+decoder_weight = 'D_75000.pth'
 
 styles = glob('test/style/*')
 
